@@ -1,1 +1,95 @@
-@use './abstract/variables' as *;
+@use '../abstract/variables' as *;
+
+#screen-start {
+    background-color: $color-darkgrey;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .start-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .headline-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        span {
+            font-family: 'Almarai';
+            font-weight: 400;
+            font-size: 48px;
+            color: $color-white;
+            text-align: left;
+            padding-left: 3px;
+        }
+
+        h1 {
+            font-family: 'Red Rose';
+            font-weight: 700;
+            font-size: 140px;
+            color: $color-white;
+            text-align: left;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .button-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 18px;
+            border: none;
+            padding: 16px 22px;
+            background-color: $color-yellow;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+
+            .icon-arrow-bold {
+                display: none;
+            }
+
+            &:hover {
+                transform: scale(1.05);
+                .icon-arrow-thin { display: none; }
+                .icon-arrow-bold { display: block; }
+                .icon-controller { transform: rotate(-17deg); }
+            }
+
+            img {
+                width: 36px;
+                height: 36px;
+                transition: transform 0.2s ease;
+            }
+
+            p {
+                font-family: 'Red Rose';
+                font-weight: 700;
+                font-size: 32px;
+                color: $color-darkgrey;
+                text-align: center;
+                margin: 0;
+            }
+        }
+    }
+
+    .controller-bg {
+        position: absolute;
+        bottom: 40px;
+        left: -60px;
+        width: 360px;
+        pointer-events: none;
+    }
+}
