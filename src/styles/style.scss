@@ -2,6 +2,6 @@
 @use './abstract/mixins' as *;
 @use './base/reset';
 @use './base/typography';
-@use './components/buttons';
 @use './components/card';
 @use './pages/screen-start';
+@use './pages/screen-settings';

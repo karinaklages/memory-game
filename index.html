@@ -8,7 +8,7 @@
 <body>
     <div>
         <!-- START -->
-        <section id="screen-start">
+        <!-- <section id="screen-start">
             <article class="start-content">
                 <div class="headline-group">
                     <span>It's play time.</span>
@@ -24,10 +24,69 @@
                 </div>
             </article>
             <img class="controller-bg" src="/img/controller-large.svg" alt="">
-        </section>
+        </section> -->
 
         <!-- SETTINGS -->
-        <section id="screen-settings"></section>
+        <section id="screen-settings">
+            <article class="settings-content">
+                <div class="settings-headline">
+                    <h1>Settings</h1>
+                    <img src="/img/arrow-yellow.svg" alt="">
+                </div>
+                <div class="settings-left">
+                    <div class="settings-group">
+                        <div class="group-title">
+                            <img src="/img/icon-palette.svg" alt="">
+                            <h2>Game Themes</h2>
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="theme" value="gaming">Code Design Theme<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="theme" value="code">Gaming Theme</label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <div class="group-title">
+                            <img src="/img/icon-player.svg" alt="">
+                            <h2>Choose Player</h2>
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="player" value="blue">Blue<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="player" value="orange">Orange</label>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <div class="group-title">
+                            <img src="/img/icon-board.svg" alt="">
+                            <h2>Board Size</h2>
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="size" value="16">16 Cards<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="size" value="24">24 Cards</label>
+                            <label><input type="radio" name="size" value="36">36 Cards</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-right">
+                    <div class="preview-box">
+                        <img src="/img/code-design-theme-visual.svg" alt="Preview Code Design Theme">
+                        <!-- <img src="/img/gaming-theme-visual.svg" alt="Preview Gaming Theme"> -->
+                    </div>
+                    <div class="settings-summary">
+                        <span>Theme</span>
+                        <img src="/img/slash-yellow.svg" alt="">
+                        <span>Player</span>
+                        <img src="/img/slash-yellow.svg" alt="">
+                        <span>Board</span>
+                        <div class="button-wrapper">
+                            <button>
+                                <img src="/img/play-icon.svg" class="play-icon" alt="">
+                                <p>Start</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
 
         <!-- GAME -->
         <section id="screen-game"></section>

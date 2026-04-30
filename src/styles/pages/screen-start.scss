@@ -57,9 +57,7 @@
             cursor: pointer;
             transition: transform 0.2s ease;
 
-            .icon-arrow-bold {
-                display: none;
-            }
+            .icon-arrow-bold { display: none; }
 
             &:hover {
                 transform: scale(1.05);
