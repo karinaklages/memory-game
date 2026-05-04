@@ -1,0 +1,85 @@
+@use '../abstract/variables' as *;
+
+.confetti {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    pointer-events: none;
+    opacity: 20%;
+    z-index: 0;
+}
+
+#screen-winner {
+    background-color: $color-darkgrey;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    .winner-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+
+        .headline-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+
+            span {
+                font-family: 'Red Rose';
+                font-weight: 400;
+                font-size: 40px;
+                color: $color-white;
+                text-align: center;
+            }
+
+            h1 {
+                font-family: 'Red Rose';
+                font-weight: 700;
+                font-size: 60px;
+                color: $color-blue;
+                text-align: center;
+                margin: 0;
+                line-height: 1;
+                margin-bottom: 36px;
+            }
+        }
+
+        .trophy {
+            width: 200px;
+            margin-bottom: 24px;
+        }
+
+        .button-wrapper {
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid $color-turquoise;
+                background-color: rgba($color-turquoise, 0.3);
+                padding: 10px 28px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                p {
+                    font-family: 'Red Rose';
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: $color-white;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
