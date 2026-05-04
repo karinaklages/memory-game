@@ -15,5 +15,9 @@ ul {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
+}
+
+.nowrap {
+  white-space: nowrap;
 }

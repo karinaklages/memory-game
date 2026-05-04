@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.svg" type="image/png">
     <title>Memory Game</title>
 </head>
 <body>
     <div>
         <!-- START -->
-        <!-- <section id="screen-start">
+        <section id="screen-start">
             <article class="start-content">
                 <div class="headline-group">
                     <span>It's play time.</span>
                     <h1>Ready to play?</h1>
                 </div>
                 <div class="button-wrapper">
-                    <button>
+                    <button id="button-play">
                         <img class="icon-controller" src="/img/controller-small.svg" alt="Controller Icon">
                         <p>Play</p>
                         <img class="icon-arrow-thin" src="/img/arrow-thin.svg" alt="">
@@ -24,10 +25,10 @@
                 </div>
             </article>
             <img class="controller-bg" src="/img/controller-large.svg" alt="">
-        </section> -->
+        </section>
 
         <!-- SETTINGS -->
-        <!-- <section id="screen-settings">
+        <section id="screen-settings" class="d-none">
             <article class="settings-content">
                 <div class="settings-headline">
                     <h1>Settings</h1>
@@ -40,7 +41,7 @@
                             <h2>Game Themes</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="theme" value="gaming">Code Design Theme<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="theme" value="gaming" checked>Code Design Theme</label>
                             <label><input type="radio" name="theme" value="code">Gaming Theme</label>
                         </div>
                     </div>
@@ -50,7 +51,7 @@
                             <h2>Choose Player</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="player" value="blue">Blue<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="player" value="blue" checked>Blue</label>
                             <label><input type="radio" name="player" value="orange">Orange</label>
                         </div>
                     </div>
@@ -60,7 +61,7 @@
                             <h2>Board Size</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="size" value="16">16 Cards<img src="/img/arrow-yellow-small.svg" alt=""></label>
+                            <label><input type="radio" name="size" value="16" checked>16 Cards</label>
                             <label><input type="radio" name="size" value="24">24 Cards</label>
                             <label><input type="radio" name="size" value="36">36 Cards</label>
                         </div>
@@ -68,15 +69,15 @@
                 </div>
                 <div class="settings-right">
                     <div class="preview-box">
-                        <img src="/img/code-design-theme-visual.svg" alt="Preview Code Design Theme">
-                        <img src="/img/gaming-theme-visual.svg" alt="Preview Gaming Theme">
+                        <img id="preview-gaming" src="/img/code-design-theme-visual.svg" alt="Preview Code Design Theme">
+                        <img id="preview-code" src="/img/gaming-theme-visual.svg" alt="Preview Gaming Theme" class="d-none">
                     </div>
                     <div class="settings-summary">
-                        <span>Theme</span>
+                        <span id="summary-theme" class="nowrap">Theme 1</span>
                         <img src="/img/slash-yellow.svg" alt="">
-                        <span>Player</span>
+                        <span id="summary-player">Blue</span>
                         <img src="/img/slash-yellow.svg" alt="">
-                        <span>Board</span>
+                        <span id="summary-board">16</span>
                         <div class="button-wrapper">
                             <button>
                                 <img src="/img/play-icon.svg" class="play-icon" alt="">
@@ -86,7 +87,7 @@
                     </div>
                 </div>
             </article>
-        </section> -->
+        </section>
 
         <!-- GAME -->
         <section id="screen-game">
@@ -119,7 +120,7 @@
         </section>
 
         <!-- GAME OVER -->
-        <!-- <section id="screen-gameover">
+        <section id="screen-gameover">
             <article class="gameover-content">
                 <h1>Game Over</h1>
                 <div class="score-group">
@@ -138,10 +139,10 @@
                     </div>
                 </div>
             </article>
-        </section> -->
+        </section>
 
         <!-- WINNER -->
-        <!-- <section id="screen-winner">
+        <section id="screen-winner">
             <img class="confetti" src="/img/confetti-white.svg" alt="">
             <article class="winner-content">
                 <div class="headline-group">
@@ -155,8 +156,8 @@
                     </button>
                 </div>
             </article>
-        </section> -->
+        </section>
     </div>
-    <script src="./src/main.ts" type="module"></script>
+    <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
