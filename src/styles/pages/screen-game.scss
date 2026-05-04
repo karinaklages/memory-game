@@ -1,42 +1,34 @@
 @use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
 
 #screen-game {
     background-color: $color-darkgrey;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center-center;
     position: relative;
     overflow: hidden;
 
     .game-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex-column-center;
         gap: 32px;
         width: 90vw;
         max-width: 1100px;
 
         .game-header {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+            @include flex-row-center;
             justify-content: space-between;
             width: 100%;
             background-color: rgba($color-turquoise, 0.15);
             padding: 14px 24px;
 
             .score-board {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
+                @include flex-row-center;
                 gap: 16px;
                 background-color: rgba($color-turquoise, 0.2);
                 padding: 8px 16px;
 
                 .score-player {
-                    display: flex;
-                    align-items: center;
+                    @include flex-center;
                     gap: 8px;
 
                     img.player-arrow {
@@ -64,8 +56,7 @@
             }
 
             .current-player {
-                display: flex;
-                align-items: center;
+                @include flex-center;
                 gap: 10px;
 
                 span {
@@ -79,12 +70,10 @@
                     width: 24px;
                     height: 24px;
                 }
-
             }
 
             .button-exit {
-                display: flex;
-                align-items: center;
+                @include flex-center;
                 gap: 10px;
                 border: 2px solid $color-turquoise;
                 background-color: rgba($color-turquoise, 0.3);

@@ -1,22 +1,18 @@
 @use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
 
 #screen-start {
     background-color: $color-darkgrey;
     height: 100vh;
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center-center;
 
     .start-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex-column-center;
 
         .headline-group {
-            display: flex;
-            flex-direction: column;
+            @include flex-column;
             gap: 8px;
         }
 
@@ -40,16 +36,12 @@
         }
 
         .button-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex-center-center;
             margin-top: 80px;
         }
 
         button {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+            @include flex-row-center;
             gap: 18px;
             border: none;
             padding: 16px 22px;
