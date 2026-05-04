@@ -60,6 +60,11 @@ const cardImages: Record<string, string[]> = {
     ]
 };
 
+// Game state variables
+let firstCard: HTMLElement | null = null;
+let secondCard: HTMLElement | null = null;
+let lockBoard = false;
+
 
 /**
  * Navigates from the start screen to the settings screen.
@@ -113,10 +118,6 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
  * Navigates from the settings screen to the game screen.
  * Hides the settings screen and reveals the game screen.
  */
-// buttonStart.addEventListener('click', () => {
-//     screenSettings.classList.add('d-none');
-//     screenGame.classList.remove('d-none');
-// });
 buttonStart.addEventListener('click', () => {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
@@ -160,6 +161,72 @@ function renderBoard(cards: string[]): void {
                 </div>
             </div>
         `;
+        card.addEventListener('click', () => handleCardClick(card));
         board.appendChild(card);
     });
+}
+
+
+/**
+ * Checks whether the two flipped cards are a matching pair.
+ */
+function isMatch(): boolean {
+    const firstImg = firstCard!.querySelector('.card-back img') as HTMLImageElement;
+    const secondImg = secondCard!.querySelector('.card-back img') as HTMLImageElement;
+    return firstImg.src === secondImg.src;
+}
+
+
+/**
+ * Locks matched cards in place and adds the matched style.
+ */
+function lockMatchedCards(): void {
+    firstCard!.classList.add('matched');
+    secondCard!.classList.add('matched');
+    resetSelection();
+}
+
+
+/**
+ * Flips unmatched cards back after a short delay.
+ */
+function flipBackUnmatched(): void {
+    setTimeout(() => {
+        firstCard!.classList.remove('flipped');
+        secondCard!.classList.remove('flipped');
+        resetSelection();
+    }, 1000);
+}
+
+
+/**
+ * Resets the current card selection and unlocks the board.
+ */
+function resetSelection(): void {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
+
+
+/**
+ * Handles card flip logic: flips cards, checks for match,
+ * and either locks matched cards or flips them back.
+ */
+function handleCardClick(card: HTMLElement): void {
+    if (lockBoard) return;
+    if (card === firstCard) return;
+    if (card.classList.contains('matched')) return;
+    card.classList.add('flipped');
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
+    secondCard = card;
+    lockBoard = true;
+    if (isMatch()) {
+        lockMatchedCards();
+    } else {
+        flipBackUnmatched();
+    }
 }
