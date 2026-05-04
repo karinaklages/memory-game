@@ -13,6 +13,8 @@ const previewGaming = document.getElementById('preview-gaming') as HTMLElement;
 const previewCode = document.getElementById('preview-code') as HTMLElement;
 const themeLabels: Record<string, string> = { gaming: 'Theme 1', code: 'Theme 2'};
 const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36'};
+const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
+const screenGame = document.getElementById('screen-game') as HTMLElement;
 
 
 /**
@@ -60,4 +62,14 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
     input.addEventListener('change', (e) => {
         summaryBoard.textContent = boardLabels[(e.target as HTMLInputElement).value];
     });
+});
+
+
+/**
+ * Navigates from the settings screen to the game screen.
+ * Hides the settings screen and reveals the game screen.
+ */
+buttonStart.addEventListener('click', () => {
+    screenSettings.classList.add('d-none');
+    screenGame.classList.remove('d-none');
 });
