@@ -16,6 +16,18 @@ const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36'
 const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
 const screenGame = document.getElementById('screen-game') as HTMLElement;
 
+// Mapping: theme + player
+const currentPlayerImages: Record<string, Record<string, string>> = {
+    gaming: {
+        blue:   '/img/player-blue-arrow.svg',
+        orange: '/img/player-orange-arrow.svg'
+    },
+    code: {
+        blue:   '/img/player-blue-square.svg',
+        orange: '/img/player-orange-square.svg'
+    }
+};
+
 // Card images for each theme
 const cardImages: Record<string, string[]> = {
     gaming: [
@@ -42,7 +54,7 @@ const cardImages: Record<string, string[]> = {
         '/img/gaming-theme-controller.svg',
         '/img/gaming-theme-peach.svg',
         '/img/gaming-theme-invador-coral.svg',
-        '/img/gaming-theme-invador-blue.svg',
+        '/img/gaming-theme-diskette.svg',
         '/img/gaming-theme-invador-green.svg',
         '/img/gaming-theme-pacman-blue.svg',
         '/img/gaming-theme-invador-darkblue.svg',
@@ -54,7 +66,7 @@ const cardImages: Record<string, string[]> = {
         '/img/gaming-theme-invador-ocher.svg',
         '/img/gaming-theme-invador-orange.svg',
         '/img/gaming-theme-pacman-green.svg',
-        '/img/gaming-theme-diskette.svg',
+        '/img/gaming-theme-invador-blue.svg',
         '/img/gaming-theme-invador-sage.svg',
         '/img/gaming-theme-invador-peach.svg'
     ]
@@ -120,7 +132,10 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
  */
 buttonStart.addEventListener('click', () => {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
+    const player = (document.querySelector('input[name="player"]:checked') as HTMLInputElement).value;
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
+    const currentPlayerImg = document.querySelector('.current-player img') as HTMLImageElement;
+    currentPlayerImg.src = currentPlayerImages[theme][player];
     const cards = generateCards(theme, size);
     renderBoard(cards);
     screenSettings.classList.add('d-none');
