@@ -1,0 +1,116 @@
+@use '../abstract/variables' as *;
+
+#screen-game {
+    background-color: $color-darkgrey;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    .game-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        width: 90vw;
+        max-width: 1100px;
+
+        .game-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background-color: rgba($color-turquoise, 0.15);
+            padding: 14px 24px;
+
+            .score-board {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 16px;
+                background-color: rgba($color-turquoise, 0.2);
+                padding: 8px 16px;
+
+                .score-player {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    img.player-arrow {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .player-name,
+                    .player-score {
+                        font-family: 'Red Rose';
+                        font-weight: 700;
+                        font-size: 24px;
+                    }
+
+                    &.blue {
+                        .dot { background-color: $color-blue; }
+                        .player-name, .player-score { color: $color-blue; }
+                    }
+
+                    &.orange {
+                        .dot { background-color: $color-orange; }
+                        .player-name, .player-score { color: $color-orange; }
+                    }
+                }
+            }
+
+            .current-player {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                span {
+                    font-family: 'Red Rose';
+                    font-weight: 400;
+                    font-size: 26px;
+                    color: $color-white;
+                }
+
+                img.player-arrow {
+                    width: 24px;
+                    height: 24px;
+                }
+
+            }
+
+            .button-exit {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border: 2px solid $color-turquoise;
+                background-color: rgba($color-turquoise, 0.3);
+                padding: 8px 16px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+
+                &:hover { transform: scale(1.05); }
+
+                img { width: 20px; height: 20px; }
+
+                p {
+                    font-family: 'Red Rose';
+                    font-weight: 400;
+                    font-size: 26px;
+                    color: $color-white;
+                    margin: 0;
+                }
+            }
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+    }
+}

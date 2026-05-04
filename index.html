@@ -89,7 +89,34 @@
         </section> -->
 
         <!-- GAME -->
-        <section id="screen-game"></section>
+        <section id="screen-game">
+            <article class="game-content">
+                <header class="game-header">
+                    <div class="score-board">
+                        <div class="score-player blue">
+                            <img class="player-arrow" src="/img/player-blue-arrow.svg" alt="Blue Arrow">
+                            <span class="player-name">Blue</span>
+                            <span class="player-score">0</span>
+                        </div>
+                        <div class="score-player orange">
+                            <img class="player-arrow" src="/img/player-orange-arrow.svg" alt="Orange Arrow">
+                            <span class="player-name">Orange</span>
+                            <span class="player-score">6</span>
+                        </div>
+                    </div>
+                    <div class="current-player">
+                        <span>Current Player:</span>
+                        <img class="player-arrow" src="/img/player-blue-arrow.svg" alt="Blue Arrow">
+                    </div>
+                    <button class="button-exit">
+                        <img src="/img/exit-icon.svg" alt="">
+                        <p>Exit Game</p>
+                    </button>
+                </header>
+                <div class="game-board">
+                </div>
+            </article>
+        </section>
 
         <!-- GAME OVER -->
         <!-- <section id="screen-gameover">
@@ -114,7 +141,7 @@
         </section> -->
 
         <!-- WINNER -->
-        <section id="screen-winner">
+        <!-- <section id="screen-winner">
             <img class="confetti" src="/img/confetti-white.svg" alt="">
             <article class="winner-content">
                 <div class="headline-group">
@@ -128,7 +155,7 @@
                     </button>
                 </div>
             </article>
-        </section>
+        </section> -->
     </div>
     <script src="./src/main.ts" type="module"></script>
 </body>

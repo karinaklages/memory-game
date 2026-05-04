@@ -3,7 +3,9 @@
 @use './base/reset';
 @use './base/typography';
 @use './components/card';
+@use './components/modal';
 @use './pages/screen-start';
 @use './pages/screen-settings';
+@use './pages/screen-game';
 @use './pages/screen-gameover';
 @use './pages/screen-winner';
