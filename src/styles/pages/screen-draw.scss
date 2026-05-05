@@ -1,0 +1,95 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+// Coding Theme (Standard)
+#screen-draw {
+    --game-bg: #{$color-darkgrey};
+    --game-button-border: #{$color-turquoise};
+    --game-button-bg: #{rgba($color-turquoise, 0.3)};
+    --game-font: 'Red Rose';
+    --game-radius: 0px;
+    --game-color: #{$color-turquoise};
+}
+
+// Gaming Theme
+.theme-gaming #screen-draw {
+    --game-bg: #{$color-darkblue};
+    --game-button-border: #{$color-pink};
+    --game-button-bg: #{rgba($color-pink, 0.3)};
+    --game-font: 'Orbitron';
+    --game-radius: 7px;
+    --game-color: #{$color-pink};
+}
+
+.theme-gaming-only { display: none; }
+
+.theme-gaming {
+    .theme-code-only   { display: none; }
+    .theme-gaming-only { display: flex; }
+}
+
+#screen-draw {
+    background-color: var(--game-bg);
+    height: 100vh;
+    @include flex-center-center;
+    position: relative;
+    overflow: hidden;
+
+    .draw-content {
+        @include flex-column-center;
+        gap: 32px;
+
+        .headline-group {
+            @include flex-column-center;
+            gap: 4px;
+
+            span {
+                font-family: var(--game-font);
+                font-weight: 400;
+                font-size: 40px;
+                color: $color-white;
+                text-align: center;
+            }
+
+            h1 {
+                font-family: var(--game-font);
+                font-weight: 700;
+                font-size: 100px;
+                color: var(--game-color);
+                text-align: center;
+                margin: 0;
+                line-height: 1;
+                margin-bottom: 16px;
+            }
+        }
+
+        .draw {
+            width: 340px;
+            margin-bottom: 24px;
+        }
+
+        .button-wrapper {
+            button {
+                @include flex-center-center;
+                border: 2px solid var(--game-button-border);
+                background-color: var(--game-button-bg);
+                padding: 10px 28px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+                border-radius: var(--game-radius);
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                p {
+                    font-family: var(--game-font);
+                    font-weight: 700;
+                    font-size: 24px;
+                    color: $color-white;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
