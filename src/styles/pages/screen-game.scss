@@ -31,6 +31,13 @@
     --game-current-player-img-size: 30px;
 }
 
+.theme-gaming-only { display: none; }
+
+.theme-gaming {
+    .theme-code-only   { display: none; }
+    .theme-gaming-only { display: flex; }
+}
+
 #screen-game {
     background-color: var(--game-bg);
     height: 100vh;
