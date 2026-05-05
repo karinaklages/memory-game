@@ -1,8 +1,38 @@
 @use '../abstract/variables' as *;
 @use '../abstract/mixins' as *;
 
+// Coding Theme (Standard)
 #screen-game {
-    background-color: $color-darkgrey;
+    --game-bg: #{$color-darkgrey};
+    --game-header-bg: #{rgba($color-turquoise, 0.15)};
+    --game-scoreboard-bg: #{rgba($color-turquoise, 0.2)};
+    --game-button-border: #{$color-turquoise};
+    --game-button-bg: #{rgba($color-turquoise, 0.3)};
+    --game-font: 'Red Rose';
+    --game-radius: 0px;
+    --game-font-size-player: 24px;
+    --game-font-current-player-weight: 400;
+    --game-font-current-player-size: 26px;
+    --game-current-player-img-size: 24px;
+}
+
+// Gaming Theme
+.theme-gaming #screen-game {
+    --game-bg: #{$color-darkblue};
+    --game-header-bg: #{rgba($color-pink, 0.15)};
+    --game-scoreboard-bg: #{rgba($color-white, 1)};
+    --game-button-border: #{$color-pink};
+    --game-button-bg: #{rgba($color-pink, 0.3)};
+    --game-font: 'Orbitron';
+    --game-radius: 7px;
+    --game-font-size-player: 30px;
+    --game-font-current-player-weight: 700;
+    --game-font-current-player-size: 30px;
+    --game-current-player-img-size: 30px;
+}
+
+#screen-game {
+    background-color: var(--game-bg);
     height: 100vh;
     @include flex-center-center;
     position: relative;
@@ -18,14 +48,16 @@
             @include flex-row-center;
             justify-content: space-between;
             width: 100%;
-            background-color: rgba($color-turquoise, 0.15);
+            background-color: var(--game-header-bg);
             padding: 14px 24px;
+            border-radius: var(--game-radius);
 
             .score-board {
                 @include flex-row-center;
                 gap: 16px;
-                background-color: rgba($color-turquoise, 0.2);
+                background-color: var(--game-scoreboard-bg);
                 padding: 8px 16px;
+                border-radius: var(--game-radius);
 
                 .score-player {
                     @include flex-center;
@@ -36,11 +68,16 @@
                         height: 24px;
                     }
 
-                    .player-name,
-                    .player-score {
-                        font-family: 'Red Rose';
+                    .player-name {
+                        font-family: var(--game-font);
                         font-weight: 700;
-                        font-size: 24px;
+                        font-size: var(--game-font-size-player);
+                    }
+
+                    .player-score {
+                        font-family: var(--game-font);
+                        font-weight: 700;
+                        font-size: var(--game-font-size-player);
                     }
 
                     &.blue {
@@ -60,35 +97,36 @@
                 gap: 10px;
 
                 span {
-                    font-family: 'Red Rose';
-                    font-weight: 400;
-                    font-size: 26px;
+                    font-family: var(--game-font);
+                    font-weight: var(--game-font-current-player-weight);
+                    font-size: var(--game-font-current-player-size);
                     color: $color-white;
                 }
 
                 img.player-arrow {
-                    width: 24px;
-                    height: 24px;
+                    width: var(--game-current-player-img-size);
+                    height: var(--game-current-player-img-size);
                 }
             }
 
             .button-exit {
                 @include flex-center;
                 gap: 10px;
-                border: 2px solid $color-turquoise;
-                background-color: rgba($color-turquoise, 0.3);
+                border: 2px solid var(--game-button-border);
+                background-color: var(--game-button-bg);  
                 padding: 8px 16px;
                 cursor: pointer;
                 transition: transform 0.2s ease;
+                border-radius: var(--game-radius);
 
                 &:hover { transform: scale(1.05); }
 
                 img { width: 20px; height: 20px; }
 
                 p {
-                    font-family: 'Red Rose';
-                    font-weight: 400;
-                    font-size: 26px;
+                    font-family: var(--game-font);
+                    font-weight: 700;
+                    font-size: 22px;
                     color: $color-white;
                     margin: 0;
                 }

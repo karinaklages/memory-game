@@ -1,3 +1,7 @@
+// –------------------------
+// Variables & Constants
+// –------------------------
+
 import './styles/style.scss';
 
 // Start screen elements
@@ -11,26 +15,32 @@ const summaryPlayer = document.getElementById('summary-player') as HTMLElement;
 const summaryBoard = document.getElementById('summary-board') as HTMLElement;
 const previewGaming = document.getElementById('preview-gaming') as HTMLElement;
 const previewCode = document.getElementById('preview-code') as HTMLElement;
-const themeLabels: Record<string, string> = { gaming: 'Theme 1', code: 'Theme 2'};
+const themeLabels: Record<string, string> = { code: 'Theme 1', gaming: 'Theme 2'};
 const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36'};
 const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
 const screenGame = document.getElementById('screen-game') as HTMLElement;
 
-// Mapping: theme + player
+// Current player images for each theme and player color
 const currentPlayerImages: Record<string, Record<string, string>> = {
-    gaming: {
+    code: {
         blue:   '/img/player-blue-arrow.svg',
         orange: '/img/player-orange-arrow.svg'
     },
-    code: {
+    gaming: {
         blue:   '/img/player-blue-square.svg',
         orange: '/img/player-orange-square.svg'
     }
 };
 
+// Card cover images for each theme
+const cardCovers: Record<string, string> = {
+    code:   '/img/code-design-theme-card.svg',
+    gaming: '/img/gaming-theme-card.svg'
+};
+
 // Card images for each theme
 const cardImages: Record<string, string[]> = {
-    gaming: [
+    code: [
         '/img/code-design-theme-angular.svg',
         '/img/code-design-theme-apple.svg',
         '/img/code-design-theme-bootstrap.svg',
@@ -50,7 +60,7 @@ const cardImages: Record<string, string[]> = {
         '/img/code-design-theme-typescript.svg',
         '/img/code-design-theme-vscode.svg'
     ],
-    code: [
+    gaming: [
         '/img/gaming-theme-controller.svg',
         '/img/gaming-theme-peach.svg',
         '/img/gaming-theme-invador-coral.svg',
@@ -77,6 +87,9 @@ let firstCard: HTMLElement | null = null;
 let secondCard: HTMLElement | null = null;
 let lockBoard = false;
 
+// –----------------------------
+// Event Listeners & Functions
+// –----------------------------
 
 /**
  * Navigates from the start screen to the settings screen.
@@ -86,7 +99,6 @@ buttonPlay.addEventListener('click', () => {
     screenStart.classList.add('d-none');
     screenSettings.classList.remove('d-none');
 });
-
 
 /**
  * Updates the theme preview image and summary label when a theme radio is selected.
@@ -105,7 +117,6 @@ document.querySelectorAll('input[name="theme"]').forEach(input => {
     });
 });
 
-
 /**
  * Updates the player summary label when a player radio is selected.
  */
@@ -114,7 +125,6 @@ document.querySelectorAll('input[name="player"]').forEach(input => {
         summaryPlayer.textContent = (e.target as HTMLInputElement).value === 'blue' ? 'Blue' : 'Orange';
     });
 });
-
 
 /**
  * Updates the board size summary label when a size radio is selected.
@@ -125,7 +135,6 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
     });
 });
 
-
 /**
  * Navigates from the settings screen to the game screen.
  * Hides the settings screen and reveals the game screen.
@@ -134,14 +143,15 @@ buttonStart.addEventListener('click', () => {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
     const player = (document.querySelector('input[name="player"]:checked') as HTMLInputElement).value;
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
+    document.body.classList.remove('theme-gaming', 'theme-code');
+    document.body.classList.add(`theme-${theme}`);
     const currentPlayerImg = document.querySelector('.current-player img') as HTMLImageElement;
     currentPlayerImg.src = currentPlayerImages[theme][player];
     const cards = generateCards(theme, size);
-    renderBoard(cards);
+    renderBoard(cards, theme);
     screenSettings.classList.add('d-none');
     screenGame.classList.remove('d-none');
 });
-
 
 /**
  * Generates a shuffled array of card pairs based on the selected theme and board size.
@@ -153,23 +163,24 @@ function generateCards(theme: string, size: number): string[] {
     return pairs.sort(() => Math.random() - 0.5);
 }
 
-
 /**
  * Renders the game board with the given cards.
  */
-function renderBoard(cards: string[]): void {
+function renderBoard(cards: string[], theme: string): void {
     const board = document.querySelector('.game-board') as HTMLElement;
     board.innerHTML = '';
     const cols = cards.length === 16 ? 4 : 6;
-    const cardSize = cards.length === 16 ? '120px' : '100px';
-    board.style.gridTemplateColumns = `repeat(${cols}, ${cardSize})`;
+    const cardWidth = theme === 'gaming'
+        ? (cards.length === 16 ? '110px' : '90px')
+        : (cards.length === 16 ? '120px' : '100px');
+    board.style.gridTemplateColumns = `repeat(${cols}, ${cardWidth})`;
     cards.forEach((imgSrc) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML = `
             <div class="card-inner">
                 <div class="card-front">
-                    <img src="/img/code-design-theme-card.svg" alt="">
+                    <img src="${cardCovers[theme]}" alt="">
                 </div>
                 <div class="card-back">
                     <img src="${imgSrc}" alt="">
@@ -181,7 +192,6 @@ function renderBoard(cards: string[]): void {
     });
 }
 
-
 /**
  * Checks whether the two flipped cards are a matching pair.
  */
@@ -191,7 +201,6 @@ function isMatch(): boolean {
     return firstImg.src === secondImg.src;
 }
 
-
 /**
  * Locks matched cards in place and adds the matched style.
  */
@@ -200,7 +209,6 @@ function lockMatchedCards(): void {
     secondCard!.classList.add('matched');
     resetSelection();
 }
-
 
 /**
  * Flips unmatched cards back after a short delay.
@@ -213,7 +221,6 @@ function flipBackUnmatched(): void {
     }, 1000);
 }
 
-
 /**
  * Resets the current card selection and unlocks the board.
  */
@@ -222,7 +229,6 @@ function resetSelection(): void {
     secondCard = null;
     lockBoard = false;
 }
-
 
 /**
  * Handles card flip logic: flips cards, checks for match,
