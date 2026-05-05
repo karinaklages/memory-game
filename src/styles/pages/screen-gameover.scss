@@ -1,8 +1,38 @@
 @use '../abstract/variables' as *;
 @use '../abstract/mixins' as *;
 
+// Coding Theme (Standard)
 #screen-gameover {
-    background-color: $color-darkgrey;
+    --game-bg: #{$color-darkgrey};
+    --game-button-border: #{$color-turquoise};
+    --game-button-bg: #{rgba($color-turquoise, 0.3)};
+    --game-font: 'Red Rose';
+    --game-radius: 0px;
+    --game-color: #{$color-turquoise};
+    --game-font-weight: 400;
+    --game-font-size: 26px;
+    --game-font-size-player: 24px;
+    --game-score-bg: #{rgba($color-turquoise, 0.2)};
+    --game-radius: 0px;
+}
+
+// Gaming Theme
+.theme-gaming #screen-gameover {
+    --game-bg: #{$color-darkblue};
+    --game-button-border: #{$color-pink};
+    --game-button-bg: #{rgba($color-pink, 0.3)};
+    --game-font: 'Orbitron';
+    --game-radius: 7px;
+    --game-color: #{$color-pink};
+    --game-font-weight: 700;
+    --game-font-size: 28px;
+    --game-font-size-player: 30px;
+    --game-score-bg: #{rgba($color-white, 1)};
+    --game-radius: 7px;
+}
+
+#screen-gameover {
+    background-color: var(--game-bg);
     height: 100vh;
     @include flex-center-center;
     position: relative;
@@ -13,10 +43,10 @@
         gap: 48px;
 
         h1 {
-            font-family: 'Red Rose';
+            font-family: var(--game-font);
             font-weight: 700;
             font-size: 140px;
-            color: $color-turquoise;
+            color: var(--game-color);
             text-align: center;
             line-height: 1;
             margin: 0;
@@ -27,32 +57,38 @@
             gap: 12px;
 
             .score-label {
-                font-family: 'Red Rose';
-                font-weight: 400;
-                font-size: 26px;
+                font-family: var(--game-font);
+                font-weight: var(--game-font-weight);
+                font-size: var(--game-font-size);
                 color: $color-white;
             }
 
             .score-board {
                 @include flex-row-center;
-                background-color: rgba($color-white, 0.1);
+                background-color: var(--game-score-bg);
                 padding: 12px 24px;
                 gap: 24px;
+                border-radius: var(--game-radius);
 
                 .score-player {
                     @include flex-center;
                     gap: 8px;
 
-                    .player-arrow {
+                    img.player-arrow {
                         width: 24px;
                         height: 24px;
                     }
 
-                    .player-name,
-                    .player-score {
-                        font-family: 'Red Rose';
+                    .player-name {
+                        font-family: var(--game-font);
                         font-weight: 700;
-                        font-size: 24px;
+                        font-size: var(--game-font-size-player);
+                    }
+
+                    .player-score {
+                        font-family: var(--game-font);
+                        font-weight: 700;
+                        font-size: var(--game-font-size-player);
                     }
 
                     &.blue {
