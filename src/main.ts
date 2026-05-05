@@ -23,18 +23,18 @@ const screenGame = document.getElementById('screen-game') as HTMLElement;
 // Current player images for each theme and player color
 const currentPlayerImages: Record<string, Record<string, string>> = {
     code: {
-        blue:   '/img/player-blue-arrow.svg',
+        blue: '/img/player-blue-arrow.svg',
         orange: '/img/player-orange-arrow.svg'
     },
     gaming: {
-        blue:   '/img/player-blue-square.svg',
+        blue: '/img/player-blue-square.svg',
         orange: '/img/player-orange-square.svg'
     }
 };
 
 // Card cover images for each theme
 const cardCovers: Record<string, string> = {
-    code:   '/img/code-design-theme-card.svg',
+    code: '/img/code-design-theme-card.svg',
     gaming: '/img/gaming-theme-card.svg'
 };
 
@@ -94,6 +94,7 @@ let orangeScore = 0;
 let totalCards = 0;
 const screenWinner = document.getElementById('screen-winner') as HTMLElement;
 const screenDraw = document.getElementById('screen-draw') as HTMLElement;
+const buttonBackToStart = document.querySelectorAll('#screen-winner button, #screen-draw button');
 
 // –----------------------------
 // Event Listeners & Functions
@@ -320,3 +321,16 @@ function checkGameOver(): void {
         }
     }, 800);
 }
+
+/**
+ * Adds a click event listener to each "back to start" button.
+ * When clicked, all game-related screens (winner, draw, game) are hidden and the settings screen is shown again.
+ */
+buttonBackToStart.forEach(button => {
+    button.addEventListener('click', () => {
+        screenWinner.classList.add('d-none');
+        screenDraw.classList.add('d-none');
+        screenGame.classList.add('d-none');
+        screenSettings.classList.remove('d-none');
+    });
+});
