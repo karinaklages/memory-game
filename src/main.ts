@@ -87,6 +87,14 @@ let firstCard: HTMLElement | null = null;
 let secondCard: HTMLElement | null = null;
 let lockBoard = false;
 
+// Score and player tracking
+let currentPlayer: 'blue' | 'orange' = 'blue';
+let blueScore = 0;
+let orangeScore = 0;
+let totalCards = 0;
+const screenWinner = document.getElementById('screen-winner') as HTMLElement;
+const screenDraw = document.getElementById('screen-draw') as HTMLElement;
+
 // –----------------------------
 // Event Listeners & Functions
 // –----------------------------
@@ -145,6 +153,12 @@ buttonStart.addEventListener('click', () => {
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
     document.body.classList.remove('theme-gaming', 'theme-code');
     document.body.classList.add(`theme-${theme}`);
+    currentPlayer = player as 'blue' | 'orange';
+    blueScore = 0;
+    orangeScore = 0;
+    totalCards = size;
+    updateScoreUI();
+    updateCurrentPlayerUI();
     const currentPlayerImg = document.querySelector('.current-player img') as HTMLImageElement;
     currentPlayerImg.src = currentPlayerImages[theme][player];
     const cards = generateCards(theme, size);
@@ -207,7 +221,14 @@ function isMatch(): boolean {
 function lockMatchedCards(): void {
     firstCard!.classList.add('matched');
     secondCard!.classList.add('matched');
+    if (currentPlayer === 'blue') {
+        blueScore++;
+    } else {
+        orangeScore++;
+    }
+    updateScoreUI();
     resetSelection();
+    checkGameOver();
 }
 
 /**
@@ -218,6 +239,7 @@ function flipBackUnmatched(): void {
         firstCard!.classList.remove('flipped');
         secondCard!.classList.remove('flipped');
         resetSelection();
+        switchPlayer();
     }, 1000);
 }
 
@@ -250,4 +272,51 @@ function handleCardClick(card: HTMLElement): void {
     } else {
         flipBackUnmatched();
     }
+}
+
+/**
+ * Updates the score display for both players in the UI.
+ */
+function updateScoreUI(): void {
+    document.querySelector('.score-player.blue .player-score')!.textContent = blueScore.toString();
+    document.querySelector('.score-player.orange .player-score')!.textContent = orangeScore.toString();
+}
+
+/**
+ * Updates the current player indicator based on active player and theme.
+ */
+function updateCurrentPlayerUI(): void {
+    const img = document.querySelector('.current-player img') as HTMLImageElement;
+    const theme = document.body.classList.contains('theme-gaming') ? 'gaming' : 'code';
+    img.src = currentPlayerImages[theme][currentPlayer];
+}
+
+/**
+ * Switches the active player and updates the UI.
+ */
+function switchPlayer(): void {
+    currentPlayer = currentPlayer === 'blue' ? 'orange' : 'blue';
+    updateCurrentPlayerUI();
+}
+
+/**
+ * Checks if all cards are matched and displays the result screen (winner or draw) after a short delay.
+ */
+function checkGameOver(): void {
+    const matchedCards = document.querySelectorAll('.card.matched').length;
+    if (matchedCards !== totalCards) return;
+    setTimeout(() => {
+        screenGame.classList.add('d-none');
+        if (blueScore === orangeScore) {
+            screenDraw.classList.remove('d-none');
+            return;
+        }
+        screenWinner.classList.remove('d-none');
+        const winnerText = screenWinner.querySelector('h1') as HTMLElement;
+        if (blueScore > orangeScore) {
+            winnerText.textContent = 'BLUE PLAYER';
+        } else {
+            winnerText.textContent = 'ORANGE PLAYER';
+        }
+    }, 800);
 }
