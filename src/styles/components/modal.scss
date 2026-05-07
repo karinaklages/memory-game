@@ -1,2 +1,88 @@
 @use '../abstract/variables' as *;
 @use '../abstract/mixins' as *;
+
+// Coding Theme (Standard)
+#dialog-exit {
+    --game-font: 'Red Rose';
+    --game-button-headline-size: 32px;
+    --game-font-color: #{$color-darkgrey};
+    --game-dialog-radius: 0px;
+    --game-color: #{$color-turquoise};
+    --game-button-color: #{$color-turquoise};
+    --game-button-back-bg: #{rgba($color-turquoise, 0.1)};
+}
+
+// Gaming Theme
+.theme-gaming #dialog-exit {
+    --game-font: 'Orbitron';
+    --game-button-headline-size: 28px;
+    --game-font-color: #{$color-darkblue};
+    --game-dialog-radius: 10px;
+    --game-color: #{$color-pink};
+    --game-button-color: #{$color-pink};
+    --game-button-back-bg: #{rgba($color-pink, 0.1)};
+}
+
+dialog {
+    border: none;
+    padding: 40px;
+    max-width: 650px;
+    width: 90vw;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    border-radius: var(--game-dialog-radius);
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .dialog-content {
+        @include flex-column-center;
+        gap: 48px;
+
+        h2 {
+            font-family: var(--game-font);
+            font-weight: 700;
+            font-size: var(--game-button-headline-size);
+            color: var(--game-font-color);
+            text-align: center;
+            margin: 0;
+        }
+
+        .dialog-buttons {
+            @include flex-row-center;
+            gap: 24px;
+
+            button {
+                padding: 14px 28px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+                border-radius: var(--game-dialog-radius);
+
+                &:hover { transform: scale(1.05); }
+
+                p {
+                    font-family: var(--game-font);
+                    font-weight: 700;
+                    font-size: 20px;
+                    margin: 0;
+                }
+
+                &#button-back-to-game {
+                    background-color: var(--game-button-color);
+                    border: 2px solid var(--game-button-color);;
+                    p { color: $color-white; }
+                }
+
+                &#button-exit-game {
+                    background-color: var(--game-button-back-bg);
+                    border: 2px solid var(--game-button-color);
+                    p { color: var(--game-button-color); }
+                }
+            }
+        }
+    }
+}

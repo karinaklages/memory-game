@@ -12,4 +12,6 @@ This game is part of the Developer Akademie's training programme for software de
 ![Memory](./public/img/memory-1.jpg)<br>
 ![Memory](./public/img/memory-2.jpg)<br>
 ![Memory](./public/img/memory-3.jpg)<br>
-![Memory](./public/img/memory-4.jpg)
+![Memory](./public/img/memory-4.jpg)<br>
+![Memory](./public/img/memory-5.jpg)<br>
+![Memory](./public/img/memory-6.jpg)

@@ -96,6 +96,11 @@ const screenWinner = document.getElementById('screen-winner') as HTMLElement;
 const screenDraw = document.getElementById('screen-draw') as HTMLElement;
 const buttonBackToStart = document.querySelectorAll('#screen-winner button, #screen-draw button');
 
+// Exit dialog elements
+const dialogExit = document.getElementById('dialog-exit') as HTMLDialogElement;
+const buttonBackToGame = document.getElementById('button-back-to-game') as HTMLButtonElement;
+const buttonExitGame = document.getElementById('button-exit-game') as HTMLButtonElement;
+
 // –----------------------------
 // Event Listeners & Functions
 // –----------------------------
@@ -333,4 +338,27 @@ buttonBackToStart.forEach(button => {
         screenGame.classList.add('d-none');
         screenSettings.classList.remove('d-none');
     });
+});
+
+/**
+ * Exit Game button in header opens the dialog.
+ */ 
+document.querySelector('.button-exit')?.addEventListener('click', () => {
+    dialogExit.showModal();
+});
+
+/**
+ * Closes the exit dialog and returns to the game.
+ */
+buttonBackToGame.addEventListener('click', () => {
+    dialogExit.close();
+});
+
+/**
+ * Closes the dialog and navigates back to the settings screen.
+ */
+buttonExitGame.addEventListener('click', () => {
+    dialogExit.close();
+    screenGame.classList.add('d-none');
+    screenSettings.classList.remove('d-none');
 });
