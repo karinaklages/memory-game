@@ -319,10 +319,17 @@ function checkGameOver(): void {
         }
         screenWinner.classList.remove('d-none');
         const winnerText = screenWinner.querySelector('h1') as HTMLElement;
+        const winnerTrophy = screenWinner.querySelector('.trophy') as HTMLImageElement;
         if (blueScore > orangeScore) {
             winnerText.textContent = 'BLUE PLAYER';
+            winnerText.classList.remove('winner-orange');
+            winnerText.classList.add('winner-blue');
+            winnerTrophy.src = '/img/player-blue.svg';
         } else {
             winnerText.textContent = 'ORANGE PLAYER';
+            winnerText.classList.remove('winner-blue');
+            winnerText.classList.add('winner-orange');
+            winnerTrophy.src = '/img/player-orange.svg';
         }
     }, 800);
 }

@@ -1,6 +1,34 @@
 @use '../abstract/variables' as *;
 @use '../abstract/mixins' as *;
 
+// Coding Theme (Standard)
+#screen-winner {
+    --game-bg: #{$color-darkgrey};
+    --game-font: 'Red Rose';
+    --game-font-weight-one: 400;
+    --game-font-weight-two: 700;
+    --game-font-size: 40px;
+    --game-font-size-headline: 60px;
+    --game-color: #{$color-blue};
+    --game-button-border: #{$color-turquoise};
+    --game-button-bg: #{rgba($color-turquoise, 0.3)};
+    --game-radius: 0px;
+}
+
+// Gaming Theme
+.theme-gaming #screen-winner {
+    --game-bg: #{$color-darkblue};
+    --game-font: 'Orbitron';
+    --game-font-weight-one: 700;
+    --game-font-weight-two: 700;
+    --game-font-size: 28px;
+    --game-font-size-headline: 64px;
+    --game-color: #{$color-orange};
+    --game-button-border: #{$color-pink};
+    --game-button-bg: #{rgba($color-pink, 0.3)};
+    --game-radius: 7px;
+}
+
 .confetti {
     position: absolute;
     top: 0;
@@ -13,7 +41,7 @@
 }
 
 #screen-winner {
-    background-color: $color-darkgrey;
+    background-color: var(--game-bg);
     height: 100vh;
     @include flex-center-center;
     position: relative;
@@ -28,22 +56,25 @@
             gap: 4px;
 
             span {
-                font-family: 'Red Rose';
-                font-weight: 400;
+                font-family: var(--game-font);
+                font-weight: var(--game-font-weight);
                 font-size: 40px;
                 color: $color-white;
                 text-align: center;
             }
 
             h1 {
-                font-family: 'Red Rose';
-                font-weight: 700;
-                font-size: 60px;
-                color: $color-blue;
+                font-family: var(--game-font);
+                font-weight: var(--game-font-weight-two);
+                font-size: var(--game-font-size-headline);
+                color: var(--game-color);
                 text-align: center;
                 margin: 0;
                 line-height: 1;
                 margin-bottom: 36px;
+
+                &.winner-blue   { color: $color-blue; }
+                &.winner-orange { color: $color-orange; }
             }
         }
 
@@ -55,18 +86,19 @@
         .button-wrapper {
             button {
                 @include flex-center-center;
-                border: 2px solid $color-turquoise;
-                background-color: rgba($color-turquoise, 0.3);
+                border: 2px solid var(--game-button-border);
+                background-color: var(--game-button-bg);
                 padding: 10px 28px;
                 cursor: pointer;
                 transition: transform 0.2s ease;
+                border-radius: var(--game-radius);
 
                 &:hover {
                     transform: scale(1.05);
                 }
 
                 p {
-                    font-family: 'Red Rose';
+                    font-family: var(--game-font);
                     font-weight: 700;
                     font-size: 24px;
                     color: $color-white;
