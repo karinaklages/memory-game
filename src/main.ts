@@ -23,62 +23,62 @@ const screenGame = document.getElementById('screen-game') as HTMLElement;
 // Current player images for each theme and player color
 const currentPlayerImages: Record<string, Record<string, string>> = {
     code: {
-        blue: '/img/player-blue-arrow.svg',
-        orange: '/img/player-orange-arrow.svg'
+        blue: './img/player-blue-arrow.svg',
+        orange: './img/player-orange-arrow.svg'
     },
     gaming: {
-        blue: '/img/player-blue-square.svg',
-        orange: '/img/player-orange-square.svg'
+        blue: './img/player-blue-square.svg',
+        orange: './img/player-orange-square.svg'
     }
 };
 
 // Card cover images for each theme
 const cardCovers: Record<string, string> = {
-    code: '/img/code-design-theme-card.svg',
-    gaming: '/img/gaming-theme-card.svg'
+    code: './img/code-design-theme-card.svg',
+    gaming: './img/gaming-theme-card.svg'
 };
 
 // Card images for each theme
 const cardImages: Record<string, string[]> = {
     code: [
-        '/img/code-design-theme-angular.svg',
-        '/img/code-design-theme-apple.svg',
-        '/img/code-design-theme-bootstrap.svg',
-        '/img/code-design-theme-css.svg',
-        '/img/code-design-theme-django.svg',
-        '/img/code-design-theme-figma.svg',
-        '/img/code-design-theme-firebase.svg',
-        '/img/code-design-theme-git.svg',
-        '/img/code-design-theme-github.svg',
-        '/img/code-design-theme-html.svg',
-        '/img/code-design-theme-illustrator.svg',
-        '/img/code-design-theme-indesign.svg',
-        '/img/code-design-theme-javascript.svg',
-        '/img/code-design-theme-lightroom.svg',
-        '/img/code-design-theme-photoshop.svg',
-        '/img/code-design-theme-python.svg',
-        '/img/code-design-theme-typescript.svg',
-        '/img/code-design-theme-vscode.svg'
+        './img/code-design-theme-angular.svg',
+        './img/code-design-theme-apple.svg',
+        './img/code-design-theme-bootstrap.svg',
+        './img/code-design-theme-css.svg',
+        './img/code-design-theme-django.svg',
+        './img/code-design-theme-figma.svg',
+        './img/code-design-theme-firebase.svg',
+        './img/code-design-theme-git.svg',
+        './img/code-design-theme-github.svg',
+        './img/code-design-theme-html.svg',
+        './img/code-design-theme-illustrator.svg',
+        './img/code-design-theme-indesign.svg',
+        './img/code-design-theme-javascript.svg',
+        './img/code-design-theme-lightroom.svg',
+        './img/code-design-theme-photoshop.svg',
+        './img/code-design-theme-python.svg',
+        './img/code-design-theme-typescript.svg',
+        './img/code-design-theme-vscode.svg'
     ],
     gaming: [
-        '/img/gaming-theme-controller.svg',
-        '/img/gaming-theme-peach.svg',
-        '/img/gaming-theme-invador-coral.svg',
-        '/img/gaming-theme-diskette.svg',
-        '/img/gaming-theme-invador-green.svg',
-        '/img/gaming-theme-pacman-blue.svg',
-        '/img/gaming-theme-invador-darkblue.svg',
-        '/img/gaming-theme-invador-pink.svg',
-        '/img/gaming-theme-cassette.svg',
-        '/img/gaming-theme-cherry.svg',
-        '/img/gaming-theme-invador-greyblue.svg',
-        '/img/gaming-theme-invador-lilac.svg',
-        '/img/gaming-theme-invador-ocher.svg',
-        '/img/gaming-theme-invador-orange.svg',
-        '/img/gaming-theme-pacman-green.svg',
-        '/img/gaming-theme-invador-blue.svg',
-        '/img/gaming-theme-invador-sage.svg',
-        '/img/gaming-theme-invador-peach.svg'
+        './img/gaming-theme-controller.svg',
+        './img/gaming-theme-peach.svg',
+        './img/gaming-theme-invador-coral.svg',
+        './img/gaming-theme-diskette.svg',
+        './img/gaming-theme-invador-green.svg',
+        './img/gaming-theme-pacman-blue.svg',
+        './img/gaming-theme-invador-darkblue.svg',
+        './img/gaming-theme-invador-pink.svg',
+        './img/gaming-theme-cassette.svg',
+        './img/gaming-theme-cherry.svg',
+        './img/gaming-theme-invador-greyblue.svg',
+        './img/gaming-theme-invador-lilac.svg',
+        './img/gaming-theme-invador-ocher.svg',
+        './img/gaming-theme-invador-orange.svg',
+        './img/gaming-theme-pacman-green.svg',
+        './img/gaming-theme-invador-blue.svg',
+        './img/gaming-theme-invador-sage.svg',
+        './img/gaming-theme-invador-peach.svg'
     ]
 };
 
@@ -324,12 +324,12 @@ function checkGameOver(): void {
             winnerText.textContent = 'BLUE PLAYER';
             winnerText.classList.remove('winner-orange');
             winnerText.classList.add('winner-blue');
-            winnerTrophy.src = '/img/player-blue.svg';
+            winnerTrophy.src = './img/player-blue.svg';
         } else {
             winnerText.textContent = 'ORANGE PLAYER';
             winnerText.classList.remove('winner-blue');
             winnerText.classList.add('winner-orange');
-            winnerTrophy.src = '/img/player-orange.svg';
+            winnerTrophy.src = './img/player-orange.svg';
         }
     }, 800);
 }
