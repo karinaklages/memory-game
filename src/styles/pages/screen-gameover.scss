@@ -13,7 +13,6 @@
     --game-font-size: 26px;
     --game-font-size-player: 24px;
     --game-score-bg: #{rgba($color-turquoise, 0.2)};
-    --game-radius: 0px;
 }
 
 // Gaming Theme
@@ -28,7 +27,6 @@
     --game-font-size: 28px;
     --game-font-size-player: 30px;
     --game-score-bg: #{rgba($color-white, 1)};
-    --game-radius: 7px;
 }
 
 #screen-gameover {
