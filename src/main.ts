@@ -404,6 +404,7 @@ function showEndScreen(): void {
             showWinnerScreen();
         } else {
             screenGameover.classList.remove('d-none');
+            setTimeout(() => showWinnerScreen(), 2000);
         }
     }
 }
@@ -423,6 +424,9 @@ function updateGameoverScore(): void {
  */
 function showWinnerScreen(): void {
     screenWinner.classList.remove('d-none');
+    screenWinner.style.animation = 'none';
+    screenWinner.offsetHeight;
+    screenWinner.style.animation = '';
     const winnerText = screenWinner.querySelector('h1') as HTMLElement;
     const winnerTrophy = screenWinner.querySelector('.trophy') as HTMLImageElement;
     const blueWins = blueScore > orangeScore;
