@@ -71,7 +71,17 @@
                         color: $color-darkgrey;
                         cursor: pointer;
 
-                        &:hover { font-weight: 700; }
+                        &:hover { font-weight: 700;
+                        
+                            input[type="radio"] {
+                                &::before {
+                                    transform: scale(1);
+                                    opacity: 1;
+                                }
+                            }
+
+                            &::after { opacity: 1; } 
+                        }
 
                         &::after {
                             content: '';
@@ -183,6 +193,12 @@
                             font-size: 20px;
                             color: $color-darkgrey;
                             margin: 0;
+                        }
+
+                        &:disabled {
+                            opacity: 0.6;
+                            cursor: not-allowed;
+                            pointer-events: none;
                         }
                     }
                 }

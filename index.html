@@ -41,8 +41,8 @@
                             <h2>Game Themes</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="theme" value="code" checked>Code Design Theme</label>
-                            <label><input type="radio" name="theme" value="gaming">Gaming Theme</label>
+                            <label data-text="Code Design Theme"><input type="radio" name="theme" value="code">Code Design Theme</label>
+                            <label data-text="Gaming Theme"><input type="radio" name="theme" value="gaming">Gaming Theme</label>
                         </div>
                     </div>
                     <div class="settings-group">
@@ -51,8 +51,8 @@
                             <h2>Choose Player</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="player" value="blue" checked>Blue</label>
-                            <label><input type="radio" name="player" value="orange">Orange</label>
+                            <label data-text="Blue"><input type="radio" name="player" value="blue">Blue</label>
+                            <label data-text="Orange"><input type="radio" name="player" value="orange">Orange</label>
                         </div>
                     </div>
                     <div class="settings-group">
@@ -61,9 +61,9 @@
                             <h2>Board Size</h2>
                         </div>
                         <div class="radio-group">
-                            <label><input type="radio" name="size" value="16" checked>16 Cards</label>
-                            <label><input type="radio" name="size" value="24">24 Cards</label>
-                            <label><input type="radio" name="size" value="36">36 Cards</label>
+                            <label data-text="16 Cards"><input type="radio" name="size" value="16">16 Cards</label>
+                            <label data-text="24 Cards"><input type="radio" name="size" value="24">24 Cards</label>
+                            <label data-text="36 Cards"><input type="radio" name="size" value="36">36 Cards</label>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <img src="./img/slash-yellow.svg" alt="">
                         <span id="summary-board">16</span>
                         <div class="button-wrapper">
-                            <button id="button-start">
+                            <button id="button-start" disabled>
                                 <img src="./img/play-icon.svg" class="play-icon" alt="">
                                 <p>Start</p>
                             </button>

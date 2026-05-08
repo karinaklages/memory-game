@@ -138,7 +138,9 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
     });
 });
 
-/** Reads and returns the selected theme, player and size from the settings form. */
+/** 
+ * Reads and returns the selected theme, player and size from the settings form.
+ */
 function getSettings(): { theme: string; player: string; size: number } {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
     const player = (document.querySelector('input[name="player"]:checked') as HTMLInputElement).value;
@@ -146,13 +148,54 @@ function getSettings(): { theme: string; player: string; size: number } {
     return { theme, player, size };
 }
 
-/** Applies the selected theme to the body element. */
+/**
+ * Applies the selected theme to the body element.
+ */
 function applyTheme(theme: string): void {
     document.body.classList.remove('theme-gaming', 'theme-code');
     document.body.classList.add(`theme-${theme}`);
 }
 
-/** Resets all game state variables to their initial values. */
+/**
+ * Enables the start button only when all three setting groups
+ * (theme, player, board size) have a selected value.
+ */
+function checkAllSelected(): void {
+    const theme = document.querySelector('input[name="theme"]:checked');
+    const player = document.querySelector('input[name="player"]:checked');
+    const size = document.querySelector('input[name="size"]:checked');
+    buttonStart.disabled = !(theme && player && size);
+}
+
+/**
+ * Listens for changes on all radio inputs and re-evaluates
+ * whether the start button should be enabled.
+ */
+document.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', checkAllSelected);
+});
+
+/**
+ * Updates the theme preview image on hover over a theme label.
+ * Shows the gaming or code design preview based on the hovered option.
+ */
+document.querySelectorAll('input[name="theme"]').forEach(input => {
+    const label = input.closest('label');
+    label?.addEventListener('mouseenter', () => {
+        const value = (input as HTMLInputElement).value;
+        if (value === 'gaming') {
+            previewGaming.classList.remove('d-none');
+            previewCode.classList.add('d-none');
+        } else {
+            previewGaming.classList.add('d-none');
+            previewCode.classList.remove('d-none');
+        }
+    });
+});
+
+/** 
+ * Resets all game state variables to their initial values.
+ */
 function resetGameState(player: string, size: number): void {
     currentPlayer = player as 'blue' | 'orange';
     blueScore = 0;
@@ -160,13 +203,17 @@ function resetGameState(player: string, size: number): void {
     totalCards = size;
 }
 
-/** Updates the current player image based on theme and player. */
+/**
+ * Updates the current player image based on theme and player.
+ */
 function updateCurrentPlayerImg(theme: string, player: string): void {
     const img = document.querySelector('.current-player img') as HTMLImageElement;
     img.src = currentPlayerImages[theme][player];
 }
 
-/** Navigates from the settings screen to the game screen. */
+/**
+ * Navigates from the settings screen to the game screen.
+ */
 buttonStart.addEventListener('click', () => {
     const { theme, player, size } = getSettings();
     applyTheme(theme);
@@ -189,12 +236,16 @@ function generateCards(theme: string, size: number): string[] {
     return pairs.sort(() => Math.random() - 0.5);
 }
 
-/** Returns the number of grid columns based on card count. */
+/**
+ * Returns the number of grid columns based on card count. 
+ */
 function getColumnCount(cardCount: number): number {
     return cardCount === 16 ? 4 : 6;
 }
 
-/** Returns the card width based on theme and card count. */
+/**
+ * Returns the card width based on theme and card count.
+ */
 function getCardWidth(theme: string, cardCount: number): string {
     const isGaming = theme === 'gaming';
     const isSmall = cardCount === 16;
@@ -202,7 +253,9 @@ function getCardWidth(theme: string, cardCount: number): string {
     return isSmall ? '120px' : '100px';
 }
 
-/** Creates and returns a single card element. */
+/**
+ * Creates and returns a single card element.
+ */
 function createCardElement(imgSrc: string, theme: string): HTMLElement {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -220,7 +273,9 @@ function createCardElement(imgSrc: string, theme: string): HTMLElement {
     return card;
 }
 
-/** Renders the game board with the given cards. */
+/**
+ * Renders the game board with the given cards.
+ */
 function renderBoard(cards: string[], theme: string): void {
     const board = document.querySelector('.game-board') as HTMLElement;
     board.innerHTML = '';
@@ -274,7 +329,9 @@ function resetSelection(): void {
     lockBoard = false;
 }
 
-/** Returns true if the card should not be processed. */
+/**
+ * Returns true if the card should not be processed.
+ */
 function shouldIgnoreClick(card: HTMLElement): boolean {
     return lockBoard || card === firstCard || card.classList.contains('matched');
 }
@@ -320,12 +377,16 @@ function switchPlayer(): void {
     updateCurrentPlayerUI();
 }
 
-/** Checks if all cards have been matched. */
+/**
+ * Checks if all cards have been matched.
+ */
 function isGameOver(): boolean {
     return document.querySelectorAll('.card.matched').length === totalCards;
 }
 
-/** Hides the game screen and shows the appropriate end screen. */
+/**
+ * Hides the game screen and shows the appropriate end screen.
+ */
 function showEndScreen(): void {
     screenGame.classList.add('d-none');
     if (blueScore === orangeScore) {
@@ -335,7 +396,9 @@ function showEndScreen(): void {
     }
 }
 
-/** Updates the winner screen with the correct player name, color and trophy. */
+/**
+ * Updates the winner screen with the correct player name, color and trophy.
+ */
 function showWinnerScreen(): void {
     screenWinner.classList.remove('d-none');
     const winnerText = screenWinner.querySelector('h1') as HTMLElement;
@@ -347,7 +410,9 @@ function showWinnerScreen(): void {
     winnerTrophy.src = blueWins ? './img/player-blue.svg' : './img/player-orange.svg';
 }
 
-/** Checks if the game is over and triggers the end screen after a short delay. */
+/**
+ * Checks if the game is over and triggers the end screen after a short delay.
+ */
 function checkGameOver(): void {
     if (!isGameOver()) return;
     setTimeout(showEndScreen, 800);
