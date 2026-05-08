@@ -7,6 +7,7 @@ import './styles/style.scss';
 const buttonPlay = document.getElementById('button-play') as HTMLButtonElement;
 const screenStart = document.getElementById('screen-start') as HTMLElement;
 const screenSettings = document.getElementById('screen-settings') as HTMLElement;
+const screenGameover = document.getElementById('screen-gameover') as HTMLElement;
 const summaryTheme = document.getElementById('summary-theme') as HTMLElement;
 const summaryPlayer = document.getElementById('summary-player') as HTMLElement;
 const summaryBoard = document.getElementById('summary-board') as HTMLElement;
@@ -80,6 +81,7 @@ let firstCard: HTMLElement | null = null;
 let secondCard: HTMLElement | null = null;
 let lockBoard = false;
 let currentPlayer: 'blue' | 'orange' = 'blue';
+let selectedPlayer: 'blue' | 'orange' = 'blue';
 let blueScore = 0;
 let orangeScore = 0;
 let totalCards = 0;
@@ -198,6 +200,7 @@ document.querySelectorAll('input[name="theme"]').forEach(input => {
  */
 function resetGameState(player: string, size: number): void {
     currentPlayer = player as 'blue' | 'orange';
+    selectedPlayer = player as 'blue' | 'orange';
     blueScore = 0;
     orangeScore = 0;
     totalCards = size;
@@ -386,14 +389,33 @@ function isGameOver(): boolean {
 
 /**
  * Hides the game screen and shows the appropriate end screen.
+ * Shows the draw screen on a tie, the winner screen if the selected player won, or the game over screen if the selected player lost.
  */
 function showEndScreen(): void {
     screenGame.classList.add('d-none');
+    updateGameoverScore();
     if (blueScore === orangeScore) {
         screenDraw.classList.remove('d-none');
     } else {
-        showWinnerScreen();
+        const selectedPlayerWins =
+            (selectedPlayer === 'blue' && blueScore > orangeScore) ||
+            (selectedPlayer === 'orange' && orangeScore > blueScore);
+        if (selectedPlayerWins) {
+            showWinnerScreen();
+        } else {
+            screenGameover.classList.remove('d-none');
+        }
     }
+}
+
+/**
+ * Transfers the final scores of both players to the game over screen.
+ */
+function updateGameoverScore(): void {
+    const blueScoreEl = document.getElementById('gameover-score-blue') as HTMLElement;
+    const orangeScoreEl = document.getElementById('gameover-score-orange') as HTMLElement;
+    blueScoreEl.textContent = blueScore.toString();
+    orangeScoreEl.textContent = orangeScore.toString();
 }
 
 /**
