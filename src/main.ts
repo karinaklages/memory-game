@@ -4,12 +4,9 @@
 
 import './styles/style.scss';
 
-// Start screen elements
 const buttonPlay = document.getElementById('button-play') as HTMLButtonElement;
 const screenStart = document.getElementById('screen-start') as HTMLElement;
 const screenSettings = document.getElementById('screen-settings') as HTMLElement;
-
-// Settings screen elements
 const summaryTheme = document.getElementById('summary-theme') as HTMLElement;
 const summaryPlayer = document.getElementById('summary-player') as HTMLElement;
 const summaryBoard = document.getElementById('summary-board') as HTMLElement;
@@ -20,7 +17,6 @@ const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36'
 const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
 const screenGame = document.getElementById('screen-game') as HTMLElement;
 
-// Current player images for each theme and player color
 const currentPlayerImages: Record<string, Record<string, string>> = {
     code: {
         blue: './img/player-blue-arrow.svg',
@@ -32,13 +28,11 @@ const currentPlayerImages: Record<string, Record<string, string>> = {
     }
 };
 
-// Card cover images for each theme
 const cardCovers: Record<string, string> = {
     code: './img/code-design-theme-card.svg',
     gaming: './img/gaming-theme-card.svg'
 };
 
-// Card images for each theme
 const cardImages: Record<string, string[]> = {
     code: [
         './img/code-design-theme-angular.svg',
@@ -82,12 +76,9 @@ const cardImages: Record<string, string[]> = {
     ]
 };
 
-// Game state variables
 let firstCard: HTMLElement | null = null;
 let secondCard: HTMLElement | null = null;
 let lockBoard = false;
-
-// Score and player tracking
 let currentPlayer: 'blue' | 'orange' = 'blue';
 let blueScore = 0;
 let orangeScore = 0;
@@ -95,8 +86,6 @@ let totalCards = 0;
 const screenWinner = document.getElementById('screen-winner') as HTMLElement;
 const screenDraw = document.getElementById('screen-draw') as HTMLElement;
 const buttonBackToStart = document.querySelectorAll('#screen-winner button, #screen-draw button');
-
-// Exit dialog elements
 const dialogExit = document.getElementById('dialog-exit') as HTMLDialogElement;
 const buttonBackToGame = document.getElementById('button-back-to-game') as HTMLButtonElement;
 const buttonExitGame = document.getElementById('button-exit-game') as HTMLButtonElement;
@@ -149,26 +138,43 @@ document.querySelectorAll('input[name="size"]').forEach(input => {
     });
 });
 
-/**
- * Navigates from the settings screen to the game screen.
- * Hides the settings screen and reveals the game screen.
- */
-buttonStart.addEventListener('click', () => {
+/** Reads and returns the selected theme, player and size from the settings form. */
+function getSettings(): { theme: string; player: string; size: number } {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
     const player = (document.querySelector('input[name="player"]:checked') as HTMLInputElement).value;
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
+    return { theme, player, size };
+}
+
+/** Applies the selected theme to the body element. */
+function applyTheme(theme: string): void {
     document.body.classList.remove('theme-gaming', 'theme-code');
     document.body.classList.add(`theme-${theme}`);
+}
+
+/** Resets all game state variables to their initial values. */
+function resetGameState(player: string, size: number): void {
     currentPlayer = player as 'blue' | 'orange';
     blueScore = 0;
     orangeScore = 0;
     totalCards = size;
+}
+
+/** Updates the current player image based on theme and player. */
+function updateCurrentPlayerImg(theme: string, player: string): void {
+    const img = document.querySelector('.current-player img') as HTMLImageElement;
+    img.src = currentPlayerImages[theme][player];
+}
+
+/** Navigates from the settings screen to the game screen. */
+buttonStart.addEventListener('click', () => {
+    const { theme, player, size } = getSettings();
+    applyTheme(theme);
+    resetGameState(player, size);
     updateScoreUI();
     updateCurrentPlayerUI();
-    const currentPlayerImg = document.querySelector('.current-player img') as HTMLImageElement;
-    currentPlayerImg.src = currentPlayerImages[theme][player];
-    const cards = generateCards(theme, size);
-    renderBoard(cards, theme);
+    updateCurrentPlayerImg(theme, player);
+    renderBoard(generateCards(theme, size), theme);
     screenSettings.classList.add('d-none');
     screenGame.classList.remove('d-none');
 });
@@ -183,33 +189,43 @@ function generateCards(theme: string, size: number): string[] {
     return pairs.sort(() => Math.random() - 0.5);
 }
 
-/**
- * Renders the game board with the given cards.
- */
+/** Returns the number of grid columns based on card count. */
+function getColumnCount(cardCount: number): number {
+    return cardCount === 16 ? 4 : 6;
+}
+
+/** Returns the card width based on theme and card count. */
+function getCardWidth(theme: string, cardCount: number): string {
+    const isGaming = theme === 'gaming';
+    const isSmall = cardCount === 16;
+    if (isGaming) return isSmall ? '110px' : '90px';
+    return isSmall ? '120px' : '100px';
+}
+
+/** Creates and returns a single card element. */
+function createCardElement(imgSrc: string, theme: string): HTMLElement {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.innerHTML = `
+        <div class="card-inner">
+            <div class="card-front">
+                <img src="${cardCovers[theme]}" alt="">
+            </div>
+            <div class="card-back">
+                <img src="${imgSrc}" alt="">
+            </div>
+        </div>
+    `;
+    card.addEventListener('click', () => handleCardClick(card));
+    return card;
+}
+
+/** Renders the game board with the given cards. */
 function renderBoard(cards: string[], theme: string): void {
     const board = document.querySelector('.game-board') as HTMLElement;
     board.innerHTML = '';
-    const cols = cards.length === 16 ? 4 : 6;
-    const cardWidth = theme === 'gaming'
-        ? (cards.length === 16 ? '110px' : '90px')
-        : (cards.length === 16 ? '120px' : '100px');
-    board.style.gridTemplateColumns = `repeat(${cols}, ${cardWidth})`;
-    cards.forEach((imgSrc) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.innerHTML = `
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="${cardCovers[theme]}" alt="">
-                </div>
-                <div class="card-back">
-                    <img src="${imgSrc}" alt="">
-                </div>
-            </div>
-        `;
-        card.addEventListener('click', () => handleCardClick(card));
-        board.appendChild(card);
-    });
+    board.style.gridTemplateColumns = `repeat(${getColumnCount(cards.length)}, ${getCardWidth(theme, cards.length)})`;
+    cards.forEach(imgSrc => board.appendChild(createCardElement(imgSrc, theme)));
 }
 
 /**
@@ -258,14 +274,17 @@ function resetSelection(): void {
     lockBoard = false;
 }
 
+/** Returns true if the card should not be processed. */
+function shouldIgnoreClick(card: HTMLElement): boolean {
+    return lockBoard || card === firstCard || card.classList.contains('matched');
+}
+
 /**
  * Handles card flip logic: flips cards, checks for match,
  * and either locks matched cards or flips them back.
  */
 function handleCardClick(card: HTMLElement): void {
-    if (lockBoard) return;
-    if (card === firstCard) return;
-    if (card.classList.contains('matched')) return;
+    if (shouldIgnoreClick(card)) return;
     card.classList.add('flipped');
     if (!firstCard) {
         firstCard = card;
@@ -273,11 +292,7 @@ function handleCardClick(card: HTMLElement): void {
     }
     secondCard = card;
     lockBoard = true;
-    if (isMatch()) {
-        lockMatchedCards();
-    } else {
-        flipBackUnmatched();
-    }
+    isMatch() ? lockMatchedCards() : flipBackUnmatched();
 }
 
 /**
@@ -305,33 +320,37 @@ function switchPlayer(): void {
     updateCurrentPlayerUI();
 }
 
-/**
- * Checks if all cards are matched and displays the result screen (winner or draw) after a short delay.
- */
+/** Checks if all cards have been matched. */
+function isGameOver(): boolean {
+    return document.querySelectorAll('.card.matched').length === totalCards;
+}
+
+/** Hides the game screen and shows the appropriate end screen. */
+function showEndScreen(): void {
+    screenGame.classList.add('d-none');
+    if (blueScore === orangeScore) {
+        screenDraw.classList.remove('d-none');
+    } else {
+        showWinnerScreen();
+    }
+}
+
+/** Updates the winner screen with the correct player name, color and trophy. */
+function showWinnerScreen(): void {
+    screenWinner.classList.remove('d-none');
+    const winnerText = screenWinner.querySelector('h1') as HTMLElement;
+    const winnerTrophy = screenWinner.querySelector('.trophy') as HTMLImageElement;
+    const blueWins = blueScore > orangeScore;
+    winnerText.textContent = blueWins ? 'BLUE PLAYER' : 'ORANGE PLAYER';
+    winnerText.classList.toggle('winner-blue', blueWins);
+    winnerText.classList.toggle('winner-orange', !blueWins);
+    winnerTrophy.src = blueWins ? './img/player-blue.svg' : './img/player-orange.svg';
+}
+
+/** Checks if the game is over and triggers the end screen after a short delay. */
 function checkGameOver(): void {
-    const matchedCards = document.querySelectorAll('.card.matched').length;
-    if (matchedCards !== totalCards) return;
-    setTimeout(() => {
-        screenGame.classList.add('d-none');
-        if (blueScore === orangeScore) {
-            screenDraw.classList.remove('d-none');
-            return;
-        }
-        screenWinner.classList.remove('d-none');
-        const winnerText = screenWinner.querySelector('h1') as HTMLElement;
-        const winnerTrophy = screenWinner.querySelector('.trophy') as HTMLImageElement;
-        if (blueScore > orangeScore) {
-            winnerText.textContent = 'BLUE PLAYER';
-            winnerText.classList.remove('winner-orange');
-            winnerText.classList.add('winner-blue');
-            winnerTrophy.src = './img/player-blue.svg';
-        } else {
-            winnerText.textContent = 'ORANGE PLAYER';
-            winnerText.classList.remove('winner-blue');
-            winnerText.classList.add('winner-orange');
-            winnerTrophy.src = './img/player-orange.svg';
-        }
-    }, 800);
+    if (!isGameOver()) return;
+    setTimeout(showEndScreen, 800);
 }
 
 /**
