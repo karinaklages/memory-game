@@ -62,7 +62,7 @@
                     gap: 10px;
                     padding-left: 38px;
 
-                    label {
+                   label {
                         @include flex-center;
                         gap: 10px;
                         font-family: 'Almarai';
@@ -70,24 +70,34 @@
                         font-size: 20px;
                         color: $color-darkgrey;
                         cursor: pointer;
+                        position: relative;
 
-                        &:hover { font-weight: 700;
-                        
-                            input[type="radio"] {
-                                &::before {
-                                    transform: scale(1);
-                                    opacity: 1;
-                                }
+                        &::before {
+                            content: attr(data-text);
+                            font-weight: 700;
+                            height: 0;
+                            visibility: hidden;
+                            overflow: hidden;
+                            position: absolute;
+                            pointer-events: none;
+                        }
+
+                        &:hover {
+                            font-weight: 700;
+
+                            input[type="radio"]::before {
+                                transform: scale(1);
+                                opacity: 1;
                             }
 
-                            &::after { opacity: 1; } 
+                            &::after { opacity: 1; }
                         }
 
                         &::after {
                             content: '';
                             display: inline-block;
                             width: 50px;
-                            height: 18px; 
+                            height: 18px;
                             background-image: url('/img/arrow-yellow-small.svg');
                             background-repeat: no-repeat;
                             background-size: contain;
@@ -112,24 +122,24 @@
                             justify-content: center;
                             cursor: pointer;
                             position: relative;
-                        }
 
-                        input[type="radio"]::before {
-                            content: "";
-                            width: 10px;
-                            height: 10px;
-                            border-radius: 50%;
-                            background: $color-darkgrey;
-                            transform: scale(0);
-                            transition: transform 0.2s ease;
-                        }
+                            &::before {
+                                content: "";
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 50%;
+                                background: $color-darkgrey;
+                                transform: scale(0);
+                                transition: transform 0.2s ease;
+                            }
 
-                        input[type="radio"]:checked::before {
-                            transform: scale(1);
-                        }
+                            &:checked::before {
+                                transform: scale(1);
+                            }
 
-                        input[type="radio"]:focus {
-                            outline: none;
+                            &:focus {
+                                outline: none;
+                            }
                         }
 
                         img { width: 60px; }
