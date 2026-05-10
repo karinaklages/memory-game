@@ -2,18 +2,16 @@
 // Variables & Constants
 // –------------------------
 
-import { screenSettings } from './settings';
+const screenGame = document.getElementById('screen-game') as HTMLElement;
+const screenGameover = document.getElementById('screen-gameover') as HTMLElement;
+const screenWinner = document.getElementById('screen-winner') as HTMLElement;
+const screenDraw = document.getElementById('screen-draw') as HTMLElement;
+const buttonBackToStart = document.querySelectorAll('#screen-winner button, #screen-draw button');
+const dialogExit = document.getElementById('dialog-exit') as HTMLDialogElement;
+const buttonBackToGame = document.getElementById('button-back-to-game') as HTMLButtonElement;
+const buttonExitGame = document.getElementById('button-exit-game') as HTMLButtonElement;
 
-export const screenGame = document.getElementById('screen-game') as HTMLElement;
-export const screenGameover = document.getElementById('screen-gameover') as HTMLElement;
-export const screenWinner = document.getElementById('screen-winner') as HTMLElement;
-export const screenDraw = document.getElementById('screen-draw') as HTMLElement;
-export const buttonBackToStart = document.querySelectorAll('#screen-winner button, #screen-draw button');
-export const dialogExit = document.getElementById('dialog-exit') as HTMLDialogElement;
-export const buttonBackToGame = document.getElementById('button-back-to-game') as HTMLButtonElement;
-export const buttonExitGame = document.getElementById('button-exit-game') as HTMLButtonElement;
-
-export const currentPlayerImages: Record<string, Record<string, string>> = {
+const currentPlayerImages: Record<string, Record<string, string>> = {
     code: {
         blue: './img/player-blue-arrow.svg',
         orange: './img/player-orange-arrow.svg'
@@ -24,12 +22,12 @@ export const currentPlayerImages: Record<string, Record<string, string>> = {
     }
 };
 
-export const cardCovers: Record<string, string> = {
+const cardCovers: Record<string, string> = {
     code: './img/code-design-theme-card.svg',
     gaming: './img/gaming-theme-card.svg'
 };
 
-export const cardImages: Record<string, string[]> = {
+const cardImages: Record<string, string[]> = {
     code: [
         './img/code-design-theme-angular.svg',
         './img/code-design-theme-apple.svg',
@@ -72,14 +70,14 @@ export const cardImages: Record<string, string[]> = {
     ]
 };
 
-export let firstCard: HTMLElement | null = null;
-export let secondCard: HTMLElement | null = null;
-export let lockBoard = false;
-export let currentPlayer: 'blue' | 'orange' = 'blue';
-export let selectedPlayer: 'blue' | 'orange' = 'blue';
-export let blueScore = 0;
-export let orangeScore = 0;
-export let totalCards = 0;
+let firstCard: HTMLElement | null = null;
+let secondCard: HTMLElement | null = null;
+let lockBoard = false;
+let currentPlayer: 'blue' | 'orange' = 'blue';
+let selectedPlayer: 'blue' | 'orange' = 'blue';
+let blueScore = 0;
+let orangeScore = 0;
+let totalCards = 0;
 
 // –----------------------------
 // Functions & Event Listeners
@@ -88,7 +86,7 @@ export let totalCards = 0;
 /** 
  * Resets all game state variables to their initial values.
  */
-export function resetGameState(player: string, size: number): void {
+function resetGameState(player: string, size: number): void {
     currentPlayer = player as 'blue' | 'orange';
     selectedPlayer = player as 'blue' | 'orange';
     blueScore = 0;
@@ -99,7 +97,7 @@ export function resetGameState(player: string, size: number): void {
 /**
  * Updates the current player image based on theme and player.
  */
-export function updateCurrentPlayerImg(theme: string, player: string): void {
+function updateCurrentPlayerImg(theme: string, player: string): void {
     const img = document.querySelector('.current-player img') as HTMLImageElement;
     img.src = currentPlayerImages[theme][player];
 }
@@ -107,7 +105,7 @@ export function updateCurrentPlayerImg(theme: string, player: string): void {
 /**
  * Generates a shuffled array of card pairs based on the selected theme and board size.
  */
-export function generateCards(theme: string, size: number): string[] {
+function generateCards(theme: string, size: number): string[] {
     const needed = size / 2;
     const images = cardImages[theme].slice(0, needed);
     const pairs = [...images, ...images];
@@ -117,14 +115,14 @@ export function generateCards(theme: string, size: number): string[] {
 /**
  * Returns the number of grid columns based on card count. 
  */
-export function getColumnCount(cardCount: number): number {
+function getColumnCount(cardCount: number): number {
     return cardCount === 16 ? 4 : 6;
 }
 
 /**
  * Returns the card width based on theme and card count.
  */
-export function getCardWidth(theme: string, cardCount: number): string {
+function getCardWidth(theme: string, cardCount: number): string {
     const isGaming = theme === 'gaming';
     const isSmall = cardCount === 16;
     if (isGaming) return isSmall ? '110px' : '90px';
@@ -134,7 +132,7 @@ export function getCardWidth(theme: string, cardCount: number): string {
 /**
  * Creates and returns a single card element.
  */
-export function createCardElement(imgSrc: string, theme: string): HTMLElement {
+function createCardElement(imgSrc: string, theme: string): HTMLElement {
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
@@ -154,7 +152,7 @@ export function createCardElement(imgSrc: string, theme: string): HTMLElement {
 /**
  * Renders the game board with the given cards.
  */
-export function renderBoard(cards: string[], theme: string): void {
+function renderBoard(cards: string[], theme: string): void {
     const board = document.querySelector('.game-board') as HTMLElement;
     board.innerHTML = '';
     board.style.gridTemplateColumns = `repeat(${getColumnCount(cards.length)}, ${getCardWidth(theme, cards.length)})`;
@@ -164,7 +162,7 @@ export function renderBoard(cards: string[], theme: string): void {
 /**
  * Checks whether the two flipped cards are a matching pair.
  */
-export function isMatch(): boolean {
+function isMatch(): boolean {
     const firstImg = firstCard!.querySelector('.card-back img') as HTMLImageElement;
     const secondImg = secondCard!.querySelector('.card-back img') as HTMLImageElement;
     return firstImg.src === secondImg.src;
@@ -173,7 +171,7 @@ export function isMatch(): boolean {
 /**
  * Locks matched cards in place and adds the matched style.
  */
-export function lockMatchedCards(): void {
+function lockMatchedCards(): void {
     firstCard!.classList.add('matched');
     secondCard!.classList.add('matched');
     if (currentPlayer === 'blue') {
@@ -189,7 +187,7 @@ export function lockMatchedCards(): void {
 /**
  * Flips unmatched cards back after a short delay.
  */
-export function flipBackUnmatched(): void {
+function flipBackUnmatched(): void {
     setTimeout(() => {
         firstCard!.classList.remove('flipped');
         secondCard!.classList.remove('flipped');
@@ -201,7 +199,7 @@ export function flipBackUnmatched(): void {
 /**
  * Resets the current card selection and unlocks the board.
  */
-export function resetSelection(): void {
+function resetSelection(): void {
     firstCard = null;
     secondCard = null;
     lockBoard = false;
@@ -210,14 +208,14 @@ export function resetSelection(): void {
 /**
  * Returns true if the card should not be processed.
  */
-export function shouldIgnoreClick(card: HTMLElement): boolean {
+function shouldIgnoreClick(card: HTMLElement): boolean {
     return lockBoard || card === firstCard || card.classList.contains('matched');
 }
 
 /**
  * Handles card flip logic: flips cards, checks for match, and either locks matched cards or flips them back.
  */
-export function handleCardClick(card: HTMLElement): void {
+function handleCardClick(card: HTMLElement): void {
     if (shouldIgnoreClick(card)) return;
     card.classList.add('flipped');
     if (!firstCard) {
@@ -232,7 +230,7 @@ export function handleCardClick(card: HTMLElement): void {
 /**
  * Updates the score display for both players in the UI.
  */
-export function updateScoreUI(): void {
+function updateScoreUI(): void {
     document.querySelector('.score-player.blue .player-score')!.textContent = blueScore.toString();
     document.querySelector('.score-player.orange .player-score')!.textContent = orangeScore.toString();
 }
@@ -240,7 +238,7 @@ export function updateScoreUI(): void {
 /**
  * Updates the current player indicator based on active player and theme.
  */
-export function updateCurrentPlayerUI(): void {
+function updateCurrentPlayerUI(): void {
     const img = document.querySelector('.current-player img') as HTMLImageElement;
     const theme = document.body.classList.contains('theme-gaming') ? 'gaming' : 'code';
     img.src = currentPlayerImages[theme][currentPlayer];
@@ -249,7 +247,7 @@ export function updateCurrentPlayerUI(): void {
 /**
  * Switches the active player and updates the UI.
  */
-export function switchPlayer(): void {
+function switchPlayer(): void {
     currentPlayer = currentPlayer === 'blue' ? 'orange' : 'blue';
     updateCurrentPlayerUI();
 }
@@ -257,7 +255,7 @@ export function switchPlayer(): void {
 /**
  * Checks if all cards have been matched.
  */
-export function isGameOver(): boolean {
+function isGameOver(): boolean {
     return document.querySelectorAll('.card.matched').length === totalCards;
 }
 
@@ -265,28 +263,23 @@ export function isGameOver(): boolean {
  * Hides the game screen and shows the appropriate end screen.
  * Shows the draw screen on a tie, the winner screen if the selected player won, or the game over screen if the selected player lost.
  */
-export function showEndScreen(): void {
+function showEndScreen(): void {
     screenGame.classList.add('d-none');
     updateGameoverScore();
-    if (blueScore === orangeScore) {
-        screenDraw.classList.remove('d-none');
-    } else {
-        const selectedPlayerWins =
-            (selectedPlayer === 'blue' && blueScore > orangeScore) ||
-            (selectedPlayer === 'orange' && orangeScore > blueScore);
-        if (selectedPlayerWins) {
-            showWinnerScreen();
+    screenGameover.classList.remove('d-none');
+    setTimeout(() => {
+        if (blueScore === orangeScore) {
+            screenDraw.classList.remove('d-none');
         } else {
-            screenGameover.classList.remove('d-none');
-            setTimeout(() => showWinnerScreen(), 2000);
+            showWinnerScreen();
         }
-    }
+    }, 2000);
 }
 
 /**
  * Transfers the final scores of both players to the game over screen.
  */
-export function updateGameoverScore(): void {
+function updateGameoverScore(): void {
     const blueScoreEl = document.getElementById('gameover-score-blue') as HTMLElement;
     const orangeScoreEl = document.getElementById('gameover-score-orange') as HTMLElement;
     blueScoreEl.textContent = blueScore.toString();
@@ -296,7 +289,7 @@ export function updateGameoverScore(): void {
 /**
  * Updates the winner screen with the correct player name, color and trophy.
  */
-export function showWinnerScreen(): void {
+function showWinnerScreen(): void {
     screenWinner.classList.remove('d-none');
     screenWinner.style.animation = 'none';
     screenWinner.offsetHeight;
@@ -313,7 +306,7 @@ export function showWinnerScreen(): void {
 /**
  * Checks if the game is over and triggers the end screen after a short delay.
  */
-export function checkGameOver(): void {
+function checkGameOver(): void {
     if (!isGameOver()) return;
     setTimeout(showEndScreen, 800);
 }

@@ -1,11 +1,3 @@
-// –------------------------
-// Imports
-// –------------------------
-
-import './styles/style.scss';
-import { buttonStart, screenSettings, getSettings, applyTheme } from './settings';
-import { screenGame, resetGameState, updateScoreUI, updateCurrentPlayerUI, updateCurrentPlayerImg, generateCards, renderBoard } from './game';
-
 // –--------------------
 // Event Listeners
 // –--------------------
