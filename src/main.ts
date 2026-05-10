@@ -1,3 +1,6 @@
+import './settings';
+import './game';
+
 // –--------------------
 // Event Listeners
 // –--------------------
