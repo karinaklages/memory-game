@@ -1,3 +1,5 @@
+@use '../abstract/variables' as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +10,9 @@
 body {
   overflow: hidden;
   user-select: none;
+
+  &.theme-code { background-color: $color-darkgrey; }
+  &.theme-gaming { background-color: $color-darkblue; }
 }
 
 ul {
