@@ -53,7 +53,7 @@
     @include flex-center-center;
     overflow: hidden;
     animation: slideInFromTop 0.6s ease forwards;
-
+    
     .winner-content {
         @include flex-column-center;
         gap: 32px;
