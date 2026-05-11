@@ -2,18 +2,18 @@
 // Variables & Constants
 // –------------------------
 
-const buttonPlay = document.getElementById('button-play') as HTMLButtonElement;
-const screenStart = document.getElementById('screen-start') as HTMLElement;
-const screenSettings = document.getElementById('screen-settings') as HTMLElement;
-const summaryTheme = document.getElementById('summary-theme') as HTMLElement;
-const summaryPlayer = document.getElementById('summary-player') as HTMLElement;
-const summaryBoard = document.getElementById('summary-board') as HTMLElement;
-const previewGaming = document.getElementById('preview-gaming') as HTMLElement;
-const previewCode = document.getElementById('preview-code') as HTMLElement;
-const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
+export const buttonPlay = document.getElementById('button-play') as HTMLButtonElement;
+export const screenStart = document.getElementById('screen-start') as HTMLElement;
+export const screenSettings = document.getElementById('screen-settings') as HTMLElement;
+export const summaryTheme = document.getElementById('summary-theme') as HTMLElement;
+export const summaryPlayer = document.getElementById('summary-player') as HTMLElement;
+export const summaryBoard = document.getElementById('summary-board') as HTMLElement;
+export const previewGaming = document.getElementById('preview-gaming') as HTMLElement;
+export const previewCode = document.getElementById('preview-code') as HTMLElement;
+export const buttonStart = document.getElementById('button-start') as HTMLButtonElement;
 
-const themeLabels: Record<string, string> = { code: 'Theme 1', gaming: 'Theme 2' };
-const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36' };
+export const themeLabels: Record<string, string> = { code: 'Theme 1', gaming: 'Theme 2' };
+export const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36' };
 
 // –----------------------------
 // Functions & Event Listeners
@@ -22,7 +22,7 @@ const boardLabels: Record<string, string> = { '16': '16', '24': '24', '36': '36'
 /** 
  * Reads and returns the selected theme, player and size from the settings form.
  */
-function getSettings(): { theme: string; player: string; size: number } {
+export function getSettings(): { theme: string; player: string; size: number } {
     const theme = (document.querySelector('input[name="theme"]:checked') as HTMLInputElement).value;
     const player = (document.querySelector('input[name="player"]:checked') as HTMLInputElement).value;
     const size = parseInt((document.querySelector('input[name="size"]:checked') as HTMLInputElement).value);
@@ -32,7 +32,7 @@ function getSettings(): { theme: string; player: string; size: number } {
 /**
  * Applies the selected theme to the body element.
  */
-function applyTheme(theme: string): void {
+export function applyTheme(theme: string): void {
     document.body.classList.remove('theme-gaming', 'theme-code');
     document.body.classList.add(`theme-${theme}`);
 }
@@ -40,7 +40,7 @@ function applyTheme(theme: string): void {
 /**
  * Enables the start button only when all three setting groups (theme, player, board size) have a selected value.
  */
-function checkAllSelected(): void {
+export function checkAllSelected(): void {
     const theme = document.querySelector('input[name="theme"]:checked');
     const player = document.querySelector('input[name="player"]:checked');
     const size = document.querySelector('input[name="size"]:checked');

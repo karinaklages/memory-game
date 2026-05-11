@@ -1,5 +1,9 @@
-import './settings';
-import './game';
+// –-------------
+// Imports
+// –-------------
+
+import { buttonStart, screenSettings, getSettings, applyTheme } from './settings';
+import { screenGame, resetGameState, updateScoreUI, updateCurrentPlayerImg, generateCards, renderBoard } from './game';
 
 // –--------------------
 // Event Listeners
@@ -13,7 +17,6 @@ buttonStart.addEventListener('click', () => {
     applyTheme(theme);
     resetGameState(player, size);
     updateScoreUI();
-    updateCurrentPlayerUI();
     updateCurrentPlayerImg(theme, player);
     renderBoard(generateCards(theme, size), theme);
     screenSettings.classList.add('d-none');
