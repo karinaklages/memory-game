@@ -10,7 +10,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto 1fr;
-        gap: 40px 80px;
+        gap: 40px 60px;
         width: 80vw;
         max-width: 1200px;
 
@@ -68,9 +68,12 @@
                         font-family: 'Almarai';
                         font-weight: 400;
                         font-size: 20px;
+                        line-height: 22px;
                         color: $color-darkgrey;
                         cursor: pointer;
                         position: relative;
+                        white-space: nowrap;
+                        height: 22px;
 
                         &::before {
                             content: attr(data-text);
@@ -84,6 +87,7 @@
 
                         &:hover {
                             font-weight: 700;
+                            height: 22px;
 
                             input[type="radio"]::before {
                                 transform: scale(1);
